@@ -1,65 +1,93 @@
-<script>
-  const music = document.getElementById("bgMusic");
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Love Popup</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: pink;
+      text-align: center;
+      padding: 50px;
+    }
+    .heart-btn {
+      font-size: 40px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+  </style>
+  <!-- Thư viện SweetAlert2 -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+  <audio id="bgMusic" loop>
+    <source src="party.mp3" type="audio/mpeg">
+  </audio>
 
-  function firstPopup() {
-    Swal.fire({
-      title: "💖 Vợ iêu của chồng đấy hởm?",
-      showDenyButton: true,
-      confirmButtonText: "Yes",
-      denyButtonText: "No",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        music.play();
-        secondPopup();
-      } else if (result.isDenied) {
-        Swal.fire({
-          icon: "warning",
-          title: "😒 Mời bạn đi ra",
-          text: "Chỗ nhà chúng tôi tình cảm với nhau",
-          showConfirmButton: false,
-          timer: 3000
-        }).then(() => {
-          firstPopup(); // quay lại popup ban đầu sau 3s
-        });
-      }
-    });
-  }
+  <script>
+    const music = document.getElementById("bgMusic");
 
-  function secondPopup() {
-    Swal.fire({
-      title: "😍 Chồng iêu vợ nhiều lắm lắm",
-      showDenyButton: true,
-      confirmButtonText: "Vợ cũm iêu chồngggg",
-      denyButtonText: "Vợ hum iêu chồngggg",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        showHeartButton();
-      } else if (result.isDenied) {
-        Swal.fire({
-          icon: "error",
-          title: "😡 Chọn sai gòiii",
-          text: "Chọn lại choa chồng!",
-        }).then(() => {
-          secondPopup(); // lặp lại tới khi chọn đúng
-        });
-      }
-    });
-  }
+    function firstPopup() {
+      Swal.fire({
+        title: "💖 Vợ iêu của chồng đấy hởm?",
+        showDenyButton: true,
+        confirmButtonText: "Yes",
+        denyButtonText: "No",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          music.play();
+          secondPopup();
+        } else if (result.isDenied) {
+          Swal.fire({
+            icon: "warning",
+            title: "😒 Mời bạn đi ra",
+            text: "Chỗ nhà chúng tôi tình cảm với nhau",
+            showConfirmButton: false,
+            timer: 3000
+          }).then(() => {
+            firstPopup(); // quay lại popup ban đầu sau 3s
+          });
+        }
+      });
+    }
 
-  function showHeartButton() {
-    const heart = document.createElement("div");
-    heart.className = "heart-btn";
-    heart.innerHTML = "❤️";
-    heart.onclick = showLetter;
-    document.body.appendChild(heart);
-  }
+    function secondPopup() {
+      Swal.fire({
+        title: "😍 Chồng iêu vợ nhiều lắm lắm",
+        showDenyButton: true,
+        confirmButtonText: "Vợ cũm iêu chồngggg",
+        denyButtonText: "Vợ hum iêu chồngggg",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          showHeartButton();
+        } else if (result.isDenied) {
+          Swal.fire({
+            icon: "error",
+            title: "😡 Chọn sai gòiii",
+            text: "Chọn lại choa chồng!",
+          }).then(() => {
+            secondPopup();
+          });
+        }
+      });
+    }
 
-  function showLetter() {
-    Swal.fire({
-      title: "💌 Thư gửi vợ",
-      html: "Chồng iêu vợ lắm, chồng biết vợ đang buồn,<br> chồng gửi vợ ngàn cái ôm thật chặt ạaa 💕"
-    });
-  }
+    function showHeartButton() {
+      const heart = document.createElement("div");
+      heart.className = "heart-btn";
+      heart.innerHTML = "❤️";
+      heart.onclick = showLetter;
+      document.body.appendChild(heart);
+    }
 
-  window.onload = firstPopup;
-</script>
+    function showLetter() {
+      Swal.fire({
+        title: "💌 Thư gửi vợ",
+        html: "Chồng iêu vợ lắm, chồng biết vợ đang buồn,<br> chồng gửi vợ ngàn cái ôm thật chặt ạaa 💕"
+      });
+    }
+
+    window.onload = firstPopup;
+  </script>
+</body>
+</html>
