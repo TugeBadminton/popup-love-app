@@ -21,7 +21,7 @@
       padding: 20px;
       border-radius: 15px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-      max-width: 300px;
+      max-width: 320px;
       display: none;
     }
     button {
@@ -37,11 +37,23 @@
     button:hover {
       background-color: #e63950;
     }
-    #heart {
+    #heartBtn {
       display: none;
-      font-size: 60px;
-      color: red;
+      font-size: 40px;
+      background: none;
+      border: none;
+      cursor: pointer;
       animation: heartbeat 1s infinite;
+    }
+    #letter {
+      display: none;
+      background: white;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      max-width: 350px;
+      font-size: 16px;
+      line-height: 1.5;
     }
     @keyframes heartbeat {
       0% { transform: scale(1); }
@@ -54,27 +66,38 @@
 </head>
 <body>
   <div id="popup1" class="popup">
-    <h2>Vợ đấy hởm?</h2>
+    <h2>Vợ iêu của chồng đấy hởm?</h2>
     <button onclick="yesClicked()">Yes</button>
     <button onclick="noClicked()">No</button>
   </div>
 
-  <div id="popup2" class="popup">
-    <h2>Chồng iêu vợ nhiều lắm 💖</h2>
-    <div id="angry-face" style="font-size:40px; display:none;">😡</div>
-    <button onclick="loveClicked()">Vợ cũng iêu chồng</button>
-    <button onclick="retryClicked()">Vợ không iêu chồng</button>
+  <div id="popupNo" class="popup">
+    <h3>Mời bạn đi ra, chỗ nhà chúng tôi tình cảm với nhau 😒</h3>
   </div>
 
-  <div id="heart">❤️</div>
+  <div id="popup2" class="popup">
+    <h2>Chồng iêu vợ nhiều lắm lắm 💖</h2>
+    <button onclick="loveClicked()">Vợ cũm iêu chồngggg</button>
+    <button onclick="retryClicked()">Vợ hum iêu chồngggg</button>
+    <div id="angry-face" style="font-size:40px; display:none;">😡</div>
+  </div>
+
+  <button id="heartBtn" onclick="showLetter()">❤️</button>
+
+  <div id="letter">
+    <p>Chồng iêu vợ lắm, chồng biết vợ đang buồn,<br>
+       chồng gửi vợ ngàn cái ôm thật chặt ạaa 💌</p>
+  </div>
 
   <audio id="bg-music" src="party.mp3" loop></audio>
 
   <script>
     const popup1 = document.getElementById("popup1");
+    const popupNo = document.getElementById("popupNo");
     const popup2 = document.getElementById("popup2");
-    const heart = document.getElementById("heart");
     const angryFace = document.getElementById("angry-face");
+    const heartBtn = document.getElementById("heartBtn");
+    const letter = document.getElementById("letter");
     const music = document.getElementById("bg-music");
 
     window.onload = () => {
@@ -86,24 +109,29 @@
       music.play();
       setTimeout(() => {
         popup2.style.display = "block";
-      }, 2000);
+      }, 1000);
     }
 
     function noClicked() {
-      alert("Thoát rồi nè!");
-      window.close();
+      popup1.style.display = "none";
+      popupNo.style.display = "block";
     }
 
     function loveClicked() {
       popup2.style.display = "none";
-      heart.style.display = "block";
       angryFace.style.display = "none";
+      heartBtn.style.display = "inline-block";
     }
 
     function retryClicked() {
-      alert("Chọn hong đúng gòi, chọn lại cho chồng!");
+      alert("Chọn sai gòiii, chọn lại choa chồng!");
       angryFace.style.display = "block";
       popup2.style.display = "block";
+    }
+
+    function showLetter() {
+      heartBtn.style.display = "none";
+      letter.style.display = "block";
     }
   </script>
 </body>
