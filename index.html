@@ -1,82 +1,65 @@
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-  <meta charset="UTF-8">
-  <title>Love Popup</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: pink;
-      text-align: center;
-      padding: 50px;
-    }
-    .hidden { display: none; }
-    .heart-btn {
-      font-size: 40px;
-      cursor: pointer;
-      margin-top: 20px;
-    }
-    .letter {
-      background: white;
-      border: 2px solid red;
-      padding: 20px;
-      margin: 20px auto;
-      width: 60%;
-      border-radius: 10px;
-      font-size: 18px;
-      line-height: 1.6;
-    }
-  </style>
-</head>
-<body>
-  <audio id="bgMusic" loop>
-    <source src="party.mp3" type="audio/mpeg">
-  </audio>
+<script>
+  const music = document.getElementById("bgMusic");
 
-  <script>
-    const music = document.getElementById("bgMusic");
-
-    function firstPopup() {
-      const choice = confirm("💖 Vợ iêu của chồng đấy hởm?");
-      if (choice) {
-        // YES
+  function firstPopup() {
+    Swal.fire({
+      title: "💖 Vợ iêu của chồng đấy hởm?",
+      showDenyButton: true,
+      confirmButtonText: "Yes",
+      denyButtonText: "No",
+    }).then((result) => {
+      if (result.isConfirmed) {
         music.play();
         secondPopup();
-      } else {
-        // NO
-        alert("😒 Mời bạn đi ra, chỗ nhà chúng tôi tình cảm với nhau");
-        setTimeout(firstPopup, 3000); // quay lại sau 3s
+      } else if (result.isDenied) {
+        Swal.fire({
+          icon: "warning",
+          title: "😒 Mời bạn đi ra",
+          text: "Chỗ nhà chúng tôi tình cảm với nhau",
+          showConfirmButton: false,
+          timer: 3000
+        }).then(() => {
+          firstPopup(); // quay lại popup ban đầu sau 3s
+        });
       }
-    }
+    });
+  }
 
-    function secondPopup() {
-      const choice = confirm("😍 Chồng iêu vợ nhiều lắm lắm\n\nOK hong vợ?");
-      if (choice) {
+  function secondPopup() {
+    Swal.fire({
+      title: "😍 Chồng iêu vợ nhiều lắm lắm",
+      showDenyButton: true,
+      confirmButtonText: "Vợ cũm iêu chồngggg",
+      denyButtonText: "Vợ hum iêu chồngggg",
+    }).then((result) => {
+      if (result.isConfirmed) {
         showHeartButton();
-      } else {
-        alert("😡 Chọn sai gòiii, chọn lại choa chồng!");
-        secondPopup(); // lặp lại tới khi chọn đúng
+      } else if (result.isDenied) {
+        Swal.fire({
+          icon: "error",
+          title: "😡 Chọn sai gòiii",
+          text: "Chọn lại choa chồng!",
+        }).then(() => {
+          secondPopup(); // lặp lại tới khi chọn đúng
+        });
       }
-    }
+    });
+  }
 
-    function showHeartButton() {
-      const heart = document.createElement("div");
-      heart.className = "heart-btn";
-      heart.innerHTML = "❤️";
-      heart.onclick = showLetter;
-      document.body.appendChild(heart);
-    }
+  function showHeartButton() {
+    const heart = document.createElement("div");
+    heart.className = "heart-btn";
+    heart.innerHTML = "❤️";
+    heart.onclick = showLetter;
+    document.body.appendChild(heart);
+  }
 
-    function showLetter() {
-      const letter = document.createElement("div");
-      letter.className = "letter";
-      letter.innerHTML = "💌 Chồng iêu vợ lắm, chồng biết vợ đang buồn,<br> chồng gửi vợ ngàn cái ôm thật chặt ạaa 💕";
-      document.body.innerHTML = ""; // clear trang
-      document.body.appendChild(letter);
-    }
+  function showLetter() {
+    Swal.fire({
+      title: "💌 Thư gửi vợ",
+      html: "Chồng iêu vợ lắm, chồng biết vợ đang buồn,<br> chồng gửi vợ ngàn cái ôm thật chặt ạaa 💕"
+    });
+  }
 
-    // chạy popup ngay khi mở web
-    window.onload = firstPopup;
-  </script>
-</body>
-</html>
+  window.onload = firstPopup;
+</script>
