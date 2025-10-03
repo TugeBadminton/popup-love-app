@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Chồng iêu vợ</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: #ffeef2;
+      margin-top: 100px;
+    }
+    #popup, #popup2 {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      z-index: 10;
+    }
+    #overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.4);
+      z-index: 5;
+    }
+    button {
+      margin: 10px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    .yes { background: #ff4d6d; color: white; }
+    .no { background: #ccc; }
+    #heart {
+      display: none;
+      font-size: 100px;
+      color: red;
+      animation: pulse 1s infinite;
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+      100% { transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+  <div id="overlay"></div>
+
+  <!-- Popup 1 -->
+  <div id="popup">
+    <p><b>Vợ đấy hởm?</b></p>
+    <button class="yes" onclick="firstYes()">Yes</button>
+    <button class="no" onclick="closePopup()">No</button>
+  </div>
+
+  <!-- Popup 2 -->
+  <div id="popup2">
+    <p><b>Chồng iêu vợ nhiều lắm</b></p>
+    <button class="yes" onclick="secondYes()">Vợ cũng iêu chồng</button>
+    <button class="no" onclick="secondNo()">Vợ không iêu chồng</button>
+  </div>
+
+  <div id="heart">❤️</div>
+
+  <script>
+    const popup = document.getElementById("popup");
+    const popup2 = document.getElementById("popup2");
+    const overlay = document.getElementById("overlay");
+    const heart = document.getElementById("heart");
+
+    // Khi load trang, hiện popup đầu tiên
+    window.onload = () => {
+      overlay.style.display = "block";
+      popup.style.display = "block";
+    };
+
+    function closePopup() {
+      overlay.style.display = "none";
+      popup.style.display = "none";
+    }
+
+    function firstYes() {
+      popup.style.display = "none";
+      // Hiệu ứng pháo hoa đơn giản (chỉ mô phỏng bằng alert, có thể thêm animation canvas)
+      alert("🎉 Pháo hoa nổ! 🎉");
+      setTimeout(() => {
+        popup2.style.display = "block";
+      }, 2000);
+    }
+
+    function secondYes() {
+      popup2.style.display = "none";
+      overlay.style.display = "none";
+      heart.style.display = "block";
+    }
+
+    function secondNo() {
+      alert("Không được từ chối 😠");
+      popup2.style.display = "block"; // vòng lặp
+    }
+  </script>
+</body>
+</html>
