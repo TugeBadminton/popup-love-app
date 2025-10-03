@@ -61,29 +61,29 @@
 
   <div id="popup2" class="popup">
     <h2>Chồng iêu vợ nhiều lắm 💖</h2>
+    <div id="angry-face" style="font-size:40px; display:none;">😡</div>
     <button onclick="loveClicked()">Vợ cũng iêu chồng</button>
     <button onclick="retryClicked()">Vợ không iêu chồng</button>
   </div>
 
   <div id="heart">❤️</div>
 
-  <audio id="bg-music" src="party.mp3" autoplay loop></audio>
+  <audio id="bg-music" src="party.mp3" loop></audio>
 
   <script>
     const popup1 = document.getElementById("popup1");
     const popup2 = document.getElementById("popup2");
     const heart = document.getElementById("heart");
+    const angryFace = document.getElementById("angry-face");
     const music = document.getElementById("bg-music");
 
     window.onload = () => {
       popup1.style.display = "block";
-      music.play().catch(() => {
-        console.log("Tự động phát bị chặn, cần người dùng click.");
-      });
     };
 
     function yesClicked() {
       popup1.style.display = "none";
+      music.play();
       setTimeout(() => {
         popup2.style.display = "block";
       }, 2000);
@@ -97,12 +97,14 @@
     function loveClicked() {
       popup2.style.display = "none";
       heart.style.display = "block";
+      angryFace.style.display = "none";
     }
 
     function retryClicked() {
+      alert("Chọn hong đúng gòi, chọn lại cho chồng!");
+      angryFace.style.display = "block";
       popup2.style.display = "block";
     }
   </script>
 </body>
 </html>
-
