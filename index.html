@@ -2,137 +2,81 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Popup Love App</title>
+  <title>Love Popup</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      text-align: center;
       background-color: pink;
-      margin: 0;
-      padding: 0;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      text-align: center;
+      padding: 50px;
     }
-    .popup {
-      background: white;
-      padding: 20px;
-      border-radius: 15px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-      max-width: 320px;
-      display: none;
-    }
-    button {
-      margin: 10px;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      background-color: #ff4d6d;
-      color: white;
-      font-size: 14px;
-    }
-    button:hover {
-      background-color: #e63950;
-    }
-    #heartBtn {
-      display: none;
+    .hidden { display: none; }
+    .heart-btn {
       font-size: 40px;
-      background: none;
-      border: none;
       cursor: pointer;
-      animation: heartbeat 1s infinite;
+      margin-top: 20px;
     }
-    #letter {
-      display: none;
+    .letter {
       background: white;
+      border: 2px solid red;
       padding: 20px;
-      border-radius: 15px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-      max-width: 350px;
-      font-size: 16px;
-      line-height: 1.5;
-    }
-    @keyframes heartbeat {
-      0% { transform: scale(1); }
-      25% { transform: scale(1.2); }
-      50% { transform: scale(1); }
-      75% { transform: scale(1.2); }
-      100% { transform: scale(1); }
+      margin: 20px auto;
+      width: 60%;
+      border-radius: 10px;
+      font-size: 18px;
+      line-height: 1.6;
     }
   </style>
 </head>
 <body>
-  <div id="popup1" class="popup">
-    <h2>Vợ iêu của chồng đấy hởm?</h2>
-    <button onclick="yesClicked()">Yes</button>
-    <button onclick="noClicked()">No</button>
-  </div>
-
-  <div id="popupNo" class="popup">
-    <h3>Mời bạn đi ra, chỗ nhà chúng tôi tình cảm với nhau 😒</h3>
-  </div>
-
-  <div id="popup2" class="popup">
-    <h2>Chồng iêu vợ nhiều lắm lắm 💖</h2>
-    <button onclick="loveClicked()">Vợ cũm iêu chồngggg</button>
-    <button onclick="retryClicked()">Vợ hum iêu chồngggg</button>
-    <div id="angry-face" style="font-size:40px; display:none;">😡</div>
-  </div>
-
-  <button id="heartBtn" onclick="showLetter()">❤️</button>
-
-  <div id="letter">
-    <p>Chồng iêu vợ lắm, chồng biết vợ đang buồn,<br>
-       chồng gửi vợ ngàn cái ôm thật chặt ạaa 💌</p>
-  </div>
-
-  <audio id="bg-music" src="party.mp3" loop></audio>
+  <audio id="bgMusic" loop>
+    <source src="party.mp3" type="audio/mpeg">
+  </audio>
 
   <script>
-    const popup1 = document.getElementById("popup1");
-    const popupNo = document.getElementById("popupNo");
-    const popup2 = document.getElementById("popup2");
-    const angryFace = document.getElementById("angry-face");
-    const heartBtn = document.getElementById("heartBtn");
-    const letter = document.getElementById("letter");
-    const music = document.getElementById("bg-music");
+    const music = document.getElementById("bgMusic");
 
-    window.onload = () => {
-      popup1.style.display = "block";
-    };
-
-    function yesClicked() {
-      popup1.style.display = "none";
-      music.play();
-      setTimeout(() => {
-        popup2.style.display = "block";
-      }, 1000);
+    function firstPopup() {
+      const choice = confirm("💖 Vợ iêu của chồng đấy hởm?");
+      if (choice) {
+        // YES
+        music.play();
+        secondPopup();
+      } else {
+        // NO
+        alert("😒 Mời bạn đi ra, chỗ nhà chúng tôi tình cảm với nhau");
+        setTimeout(firstPopup, 3000); // quay lại sau 3s
+      }
     }
 
-    function noClicked() {
-      popup1.style.display = "none";
-      popupNo.style.display = "block";
+    function secondPopup() {
+      const choice = confirm("😍 Chồng iêu vợ nhiều lắm lắm\n\nOK hong vợ?");
+      if (choice) {
+        showHeartButton();
+      } else {
+        alert("😡 Chọn sai gòiii, chọn lại choa chồng!");
+        secondPopup(); // lặp lại tới khi chọn đúng
+      }
     }
 
-    function loveClicked() {
-      popup2.style.display = "none";
-      angryFace.style.display = "none";
-      heartBtn.style.display = "inline-block";
-    }
-
-    function retryClicked() {
-      alert("Chọn sai gòiii, chọn lại choa chồng!");
-      angryFace.style.display = "block";
-      popup2.style.display = "block";
+    function showHeartButton() {
+      const heart = document.createElement("div");
+      heart.className = "heart-btn";
+      heart.innerHTML = "❤️";
+      heart.onclick = showLetter;
+      document.body.appendChild(heart);
     }
 
     function showLetter() {
-      heartBtn.style.display = "none";
-      letter.style.display = "block";
+      const letter = document.createElement("div");
+      letter.className = "letter";
+      letter.innerHTML = "💌 Chồng iêu vợ lắm, chồng biết vợ đang buồn,<br> chồng gửi vợ ngàn cái ôm thật chặt ạaa 💕";
+      document.body.innerHTML = ""; // clear trang
+      document.body.appendChild(letter);
     }
+
+    // chạy popup ngay khi mở web
+    window.onload = firstPopup;
   </script>
 </body>
 </html>
